@@ -1,16 +1,107 @@
-# React + Vite
+# MediCompare — Healthcare Price Comparison Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MediCompare is a healthcare price transparency platform that helps users compare treatment prices across hospitals and make more informed healthcare decisions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Treatment Price Comparison** — Compare treatment prices across hospitals.
+- **Hospital Listings** — Explore hospitals and their available treatments.
+- **Treatment Search** — Search for treatments such as X-Ray and Blood Test.
+- **Price Difference** — View the price difference between hospitals and identify the lowest listed price.
+- **Admin Panel** — Manage treatment information through the admin interface.
+- **Responsive UI** — Designed to work across desktop and mobile screen sizes.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer | Technology |
+|---|---|
+| Frontend | React.js |
+| Development Tool | Vite |
+| Backend | Java, Spring Boot |
+| Database | MySQL |
+| Build Tool | Maven |
+| Version Control | Git and GitHub |
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```text
+MediCompare/
+├── frontend/       # React application
+│   ├── src/
+│   └── package.json
+├── medicompare/    # Spring Boot backend
+│   ├── src/
+│   ├── pom.xml
+│   └── Dockerfile
+├── .gitignore
+├── package.json
+└── package-lock.json
+```
+
+## Getting Started
+
+### Prerequisites
+
+Install the following tools:
+
+- Node.js and npm
+- Java Development Kit (JDK)
+- MySQL Server
+- Git
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/sadikapathan/MediCompare.git
+cd MediCompare
+```
+
+### 2. Start the backend
+
+Configure the required database connection and environment variables in your local environment. Then run:
+
+```powershell
+cd medicompare
+.\mvnw.cmd spring-boot:run
+```
+
+The backend is configured to run on port `8080` by default.
+
+### 3. Start the frontend
+
+Open a second terminal from the repository root and run:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Open the local URL printed by Vite in your terminal, usually `http://localhost:5173`.
+
+## API Endpoints
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/hospitals` | Retrieve hospital information |
+| `GET /api/treatments` | Retrieve treatment information |
+
+Additional endpoints may be available depending on the backend implementation.
+
+## Security Notes
+
+- Do not commit database passwords, admin passwords, API keys, or other secrets.
+- Store credentials in environment variables.
+- Use secure configuration when deploying the application.
+
+## Project Status
+
+This project is under active development as a healthcare price comparison demo.
+
+## Contributing
+
+Contributions, bug reports, and suggestions are welcome. Please open an issue or submit a pull request.
+
+## License
+
+No license has been specified yet.
