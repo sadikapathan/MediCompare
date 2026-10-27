@@ -1,13 +1,27 @@
+
 package com.medicompare.medicompare;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
 class MedicompareApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void healthCheckReturnsCorrectStatus() {
+        HealthController controller = new HealthController();
 
+        Map<String, String> response = controller.healthCheck();
+
+        assertNotNull(response);
+        assertEquals("UP", response.get("status"));
+        assertEquals("MediCompare", response.get("application"));
+        assertEquals(
+            "MediCompare API is running successfully!",
+            response.get("message")
+        );
+    }
 }
