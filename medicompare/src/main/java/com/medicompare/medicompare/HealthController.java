@@ -14,6 +14,7 @@ public class HealthController {
         return Map.of(
             "status", "UP",
             "application", "MediCompare",
+            "version", "1.0.0",
             "message", "MediCompare API is running successfully!"
         );
     }
