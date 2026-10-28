@@ -19,6 +19,7 @@ class MedicompareApplicationTests {
         assertNotNull(response);
         assertEquals("UP", response.get("status"));
         assertEquals("MediCompare", response.get("application"));
+        assertEquals("1.0.0", response.get("version"));
         assertEquals(
             "MediCompare API is running successfully!",
             response.get("message")
