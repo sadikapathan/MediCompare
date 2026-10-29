@@ -1,4 +1,3 @@
-
 package com.medicompare.medicompare;
 
 import java.util.Map;
@@ -15,7 +14,7 @@ public class HealthController {
             "status", "UP",
             "application", "MediCompare",
             "version", "1.0.0",
-            "message", "MediCompare API is running successfully!"
+            "message", "MediCompare API is healthy and running!"
         );
     }
 }
