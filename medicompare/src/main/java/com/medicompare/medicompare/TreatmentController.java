@@ -2,6 +2,18 @@
 package com.medicompare.medicompare;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
@@ -72,7 +84,9 @@ public class TreatmentController {
     }
 
     @PostMapping
-    public Treatment addTreatment(@RequestBody Treatment treatment) {
+    public Treatment addTreatment(
+            @Valid @RequestBody Treatment treatment) {
+
         if (treatment.getHospital() != null
                 && treatment.getHospital().getId() != null) {
             Hospital hospital = hospitalRepository
@@ -81,27 +95,18 @@ public class TreatmentController {
                             new RuntimeException("Hospital not found"));
             treatment.setHospital(hospital);
         }
+
         return treatmentRepository.save(treatment);
     }
 
     @PutMapping("/{id}")
     public Treatment updateTreatment(
             @PathVariable Long id,
-            @RequestBody Treatment updatedTreatment) {
+            @Valid @RequestBody Treatment updatedTreatment) {
 
         Treatment existing = treatmentRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Treatment not found"));
-
-        if (updatedTreatment.getName() == null
-                || updatedTreatment.getName().isBlank()) {
-            throw new IllegalArgumentException("Treatment name is required");
-        }
-
-        if (updatedTreatment.getPrice() == null
-                || updatedTreatment.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Price must be greater than zero");
-        }
 
         if (updatedTreatment.getHospital() == null
                 || updatedTreatment.getHospital().getId() == null) {
