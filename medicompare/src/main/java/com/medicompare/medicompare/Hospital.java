@@ -1,10 +1,11 @@
-
 package com.medicompare.medicompare;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Hospital {
@@ -13,8 +14,14 @@ public class Hospital {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Hospital name is required")
+    @Size(max = 100, message = "Hospital name cannot exceed 100 characters")
     private String name;
+
+    @NotBlank(message = "Hospital city is required")
+    @Size(max = 100, message = "Hospital city cannot exceed 100 characters")
     private String city;
+
     private String address;
 
     public Hospital() {

@@ -1,15 +1,16 @@
-
 package com.medicompare.medicompare;
 
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/hospitals")
 @CrossOrigin(origins = {
-    "http://localhost:5173",
-    "http://localhost:5174"
-})public class HospitalController {
+        "http://localhost:5173",
+        "http://localhost:5174"
+})
+public class HospitalController {
 
     private final HospitalRepository hospitalRepository;
 
@@ -31,7 +32,9 @@ import java.util.List;
 
     // Add a new hospital
     @PostMapping
-    public Hospital addHospital(@RequestBody Hospital hospital) {
+    public Hospital addHospital(
+            @Valid @RequestBody Hospital hospital) {
+
         return hospitalRepository.save(hospital);
     }
 }
