@@ -30,17 +30,27 @@ public class GlobalExceptionHandler {
                 ));
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleNotFoundException(
+            RuntimeException exception) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "status", "ERROR",
+                        "message", exception.getMessage()
+                ));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleException(
             Exception exception) {
 
-        Map<String, String> errorResponse = Map.of(
-                "status", "ERROR",
-                "message", "Something went wrong. Please try again."
-        );
-
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(errorResponse);
+                .body(Map.of(
+                        "status", "ERROR",
+                        "message", "Something went wrong. Please try again."
+                ));
     }
 }
