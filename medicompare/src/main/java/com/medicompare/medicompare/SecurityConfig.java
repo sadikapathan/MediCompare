@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,6 +46,7 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of(
@@ -77,25 +79,45 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .cors(Customizer.withDefaults())
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
             .authorizeHttpRequests(auth -> auth
+
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // Swagger documentation
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**"
+                ).permitAll()
+
+                // Public GET APIs
                 .requestMatchers(
                     HttpMethod.GET,
                     "/api/treatments",
                     "/api/treatments/compare",
                     "/api/hospitals"
                 ).permitAll()
+
+                // Admin-only APIs
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
                 .requestMatchers(
                     HttpMethod.POST, "/api/treatments"
                 ).hasRole("ADMIN")
+
                 .requestMatchers(
                     HttpMethod.PUT, "/api/treatments/**"
                 ).hasRole("ADMIN")
+
                 .requestMatchers(
                     HttpMethod.DELETE, "/api/treatments/**"
                 ).hasRole("ADMIN")
-                .anyRequest().permitAll()
+
+                // All other endpoints require authentication
+                .anyRequest().authenticated()
             )
             .httpBasic(Customizer.withDefaults());
 
