@@ -105,3 +105,10 @@ Contributions, bug reports, and suggestions are welcome. Please open an issue or
 ## License
 
 No license has been specified yet.
+## API Security
+
+- Implemented Spring Security with HTTP Basic Authentication.
+- Secured treatment create, update, and delete operations.
+- Used BCrypt password encryption.
+- Configured role-based ADMIN authorization.
+- Managed admin credentials using environment variables.
