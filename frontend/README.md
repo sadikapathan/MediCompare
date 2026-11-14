@@ -112,3 +112,12 @@ No license has been specified yet.
 - Used BCrypt password encryption.
 - Configured role-based ADMIN authorization.
 - Managed admin credentials using environment variables.
+## Technologies Used
+
+- Java 21
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- MySQL
+- Maven
+- Swagger / OpenAPI
