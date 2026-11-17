@@ -1,3 +1,19 @@
 
 # Node dependencies
 node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Local configuration
+**/application-local.properties
+
+# Private keys
+*.pem
+*.key
+
+# Build files
+**/target/
+frontend/dist/
